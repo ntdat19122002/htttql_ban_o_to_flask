@@ -1,18 +1,31 @@
 <template>
   <div class="car-sell-in-dashboard">
     <div class="grid">
-        <CarCard></CarCard>
-        <CarCard></CarCard>
+        <div v-for="car in cars" :key="car">
+          <CarCard :car="car"/>
+        </div>
     </div> 
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 import CarCard from "./CarCard.vue";
 export default {
   components: {
     CarCard,
   },
+  data(){
+    return{
+      cars:[]
+    }
+  },
+  mounted(){
+    axios.get('http://127.0.0.1:5000/car/list')
+    .then(res => {
+      this.cars = res.data
+    })
+  }
 };
 </script>
 

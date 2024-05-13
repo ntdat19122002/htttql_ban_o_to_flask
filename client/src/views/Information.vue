@@ -115,7 +115,7 @@ export default {
         .catch((e) => console.log(e));
     },
   },
-  mounted() {
+  beforeMount() {
     axios
       .get("http://127.0.0.1:5000/information/get_information_list")
       .then((res) => {

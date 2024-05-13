@@ -1,18 +1,27 @@
 <template>
   <div class="car-card">
     <img src="@/assets/images/cars/car1.webp" alt="" />
-    <div class="car-name">Tesla model-3</div>
-    <button>Buy now</button>
+    <div class="car-name">{{car.ten}}</div>
+    <button @click="redirect(`/cars/new/${car.id}`)">Buy now</button>
   </div>
 </template>
 
 <script>
-export default {};
+import axios from 'axios';
+export default {
+  props:['car'],
+  methods:{
+    redirect(url){
+      this.$router.push({ path:url})
+    }
+  }
+};
 </script>
 
 <style scoped>
 img {
   width: 100%;
+  height: 220px;
 }
 .car-card {
   border: 1px rgb(109, 109, 109) solid;

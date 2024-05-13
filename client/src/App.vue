@@ -5,7 +5,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <div class="navbar">
     <router-link :to="{name:'dashboard'}" class="navbar-item">Dashboard</router-link>
-    <router-link :to="{name:'information'}" class="navbar-item">Information</router-link>
+    <router-link v-if="false" :to="{name:'information'}" class="navbar-item">Information</router-link>
   </div>
   <RouterView />
 </template>
