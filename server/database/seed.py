@@ -139,7 +139,7 @@ class Seed:
     def fake_hoa_don(self):
         used_o_to_ids = set()
         while len(used_o_to_ids) < 50:
-            used_o_to_ids.add(random.randint(301, 400))
+            used_o_to_ids.add(random.randint(1, 100))
 
         start_date = datetime(2013, 1, 1)
         end_date = datetime(2014, 5, 1)
@@ -163,5 +163,7 @@ class Seed:
         mydb.commit()
 
 seed = Seed()
-# # seed.fake_nhan_vien()
-seed.fake_hoa_don()
+# seed.fake_loai_xe()
+# seed.fake_o_to()
+# seed.fake_nhan_vien()
+# seed.fake_hoa_don()

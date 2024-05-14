@@ -4,7 +4,7 @@ class Validation:
         self.mycursor = mydb.cursor()
     def check_table_exists(self):
         table_list = ['loai_xe','tin_tuc','o_to','nguoi_dung','dai_ly','khuyen_mai'
-                      ,'nguoi_dung','bai_dang','kho','hoa_don','nhan_vien','bao_hiem']
+                      ,'nguoi_dung','bai_dang','kho','nhan_vien','hoa_don','bao_hiem']
         for table in table_list:
             if not self.table_exists(self.mycursor, table):
                 self.create_table(self.mycursor, table)
