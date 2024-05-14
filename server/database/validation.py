@@ -187,7 +187,6 @@ class ValidationDw:
             cursor.execute("""
                 CREATE TABLE thoi_gian (
                     id INT AUTO_INCREMENT PRIMARY KEY,
-                    tuan INT,
                     thang INT,
                     quy INT,
                     nam INT
