@@ -39,3 +39,15 @@ class Database:
         # Fetch all the results
         results = mycursor.fetchone()
         return results
+
+    def get_ids(self):
+        ids = []
+        mycursor = mydb.cursor()
+        sql = f"SELECT id FROM {self.database_name}"
+
+        mycursor.execute(sql)
+        # Fetch all the results
+        results = mycursor.fetchall()
+        for result in results:
+            ids.append(result[0])
+        return ids

@@ -64,6 +64,20 @@ class Validation:
                     mat_khau VARCHAR(255)
                 )
             """)
+        elif table_name == 'nhan_vien':
+            cursor.execute("""
+                    CREATE TABLE nhan_vien (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        ten VARCHAR(255),
+                        ngay_sinh VARCHAR(255),
+                        dia_chi VARCHAR(255),
+                        email VARCHAR(255),
+                        cccd VARCHAR(255),
+                        hinh_anh VARCHAR(255),
+                        chuc_vu VARCHAR(255),
+                        mat_khau VARCHAR(255)
+                    )
+                """)
         elif table_name == 'bai_dang':
             cursor.execute("""
                 CREATE TABLE bai_dang (
@@ -94,24 +108,15 @@ class Validation:
             cursor.execute("""
                 CREATE TABLE hoa_don (
                     id INT AUTO_INCREMENT PRIMARY KEY,
-                    name VARCHAR(255),
-                    content TEXT
+                    nhan_vien_id INT NOT NULL,
+                    o_to_id INT NOT NULL,
+                    ma_so_thue VARCHAR(50),
+                    hinh_thuc_thanh_toan VARCHAR(50),
+                    thoi_gian DATE,
+                    FOREIGN KEY (nhan_vien_id) REFERENCES nhan_vien(id),
+                    FOREIGN KEY (o_to_id) REFERENCES o_to(id)
                 )
             """)
-        elif table_name == 'nhan_vien':
-            cursor.execute("""
-                    CREATE TABLE nhan_vien (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        ten VARCHAR(255),
-                        ngay_sinh VARCHAR(255),
-                        dia_chi VARCHAR(255),
-                        email VARCHAR(255),
-                        cccd VARCHAR(255),
-                        hinh_anh VARCHAR(255),
-                        chuc_vu VARCHAR(255),
-                        mat_khau VARCHAR(255)
-                    )
-                """)
         elif table_name == 'tin_tuc':
             cursor.execute("""
                     CREATE TABLE tin_tuc (
