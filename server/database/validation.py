@@ -3,7 +3,7 @@ class Validation:
         self.mydb = mydb
         self.mycursor = mydb.cursor()
     def check_table_exists(self):
-        table_list = ['loai_xe','tin_tuc','o_to','nguoi_dung','dai_ly','khuyen_mai'
+        table_list = ['loai_xe','tin_tuc','chi_nhanh','o_to','nguoi_dung','dai_ly','khuyen_mai'
                       ,'nguoi_dung','bai_dang','kho','nhan_vien','hoa_don','bao_hiem']
         for table in table_list:
             if not self.table_exists(self.mycursor, table):
@@ -59,15 +59,25 @@ class Validation:
                 CREATE TABLE nguoi_dung (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     ten VARCHAR(255),
+                    email VARCHAR(255),
                     dia_chi VARCHAR(255),
                     so_dien_thoai VARCHAR(255),
                     mat_khau VARCHAR(255)
+                )
+            """)
+        elif table_name == 'chi_nhanh':
+            cursor.execute("""
+                CREATE TABLE chi_nhanh (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    ten VARCHAR(255),
+                    dia_chi VARCHAR(255)
                 )
             """)
         elif table_name == 'nhan_vien':
             cursor.execute("""
                     CREATE TABLE nhan_vien (
                         id INT AUTO_INCREMENT PRIMARY KEY,
+                        chi_nhanh_id INT,
                         ten VARCHAR(255),
                         ngay_sinh VARCHAR(255),
                         dia_chi VARCHAR(255),
@@ -75,7 +85,8 @@ class Validation:
                         cccd VARCHAR(255),
                         hinh_anh VARCHAR(255),
                         chuc_vu VARCHAR(255),
-                        mat_khau VARCHAR(255)
+                        mat_khau VARCHAR(255),
+                        FOREIGN KEY (chi_nhanh_id) REFERENCES chi_nhanh(id)
                     )
                 """)
         elif table_name == 'bai_dang':
@@ -108,11 +119,13 @@ class Validation:
             cursor.execute("""
                 CREATE TABLE hoa_don (
                     id INT AUTO_INCREMENT PRIMARY KEY,
+                    nguoi_dung_id INT NOT NULL,
                     nhan_vien_id INT NOT NULL,
                     o_to_id INT NOT NULL,
                     ma_so_thue VARCHAR(50),
                     hinh_thuc_thanh_toan VARCHAR(50),
                     thoi_gian DATE,
+                    FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(id),
                     FOREIGN KEY (nhan_vien_id) REFERENCES nhan_vien(id),
                     FOREIGN KEY (o_to_id) REFERENCES o_to(id)
                 )
@@ -156,8 +169,7 @@ class ValidationDw:
             cursor.execute("""
                 CREATE TABLE khach_hang (
                     id INT AUTO_INCREMENT PRIMARY KEY,
-                    thanh_pho VARCHAR(255),
-                    quan VARCHAR(255),
+                    dia_chi VARCHAR(255),
                     email VARCHAR(255),
                     sdt VARCHAR(255)
                 )

@@ -1,6 +1,7 @@
 import re
 import random
 from datetime import datetime, timedelta
+from faker import Faker
 
 import mysql.connector
 import json
@@ -102,33 +103,65 @@ class Seed:
             video))
         mydb.commit()
 
+    def fake_chi_nhanh(self):
+        sql = """
+            INSERT INTO chi_nhanh (ten,  dia_chi) VALUES
+            ("Branch A", "123 Main St, City A"),
+            ("Branch B", "456 Elm St, City B"),
+            ("Branch C", "789 Oak St, City C"),
+            ("Branch D", "101 Pine St, City D")
+        """
+        mycursor.execute(sql)
+        mydb.commit()
+        print('insert 4 record into chi_nhanh table')
+
     def fake_nhan_vien(self):
         sql = """
-                INSERT INTO nhan_vien (ten, ngay_sinh, dia_chi, email, cccd, hinh_anh, chuc_vu, mat_khau) VALUES
-                ('Nguyen Van A', '1990-01-15', '123 Pho Hue, Ha Noi', 'nguyenvana@example.com', '012345678901', 'images/nguyenvana.jpg', 'Nhan vien', 'password1'),
-                ('Tran Thi B', '1985-05-20', '456 Le Loi, Ho Chi Minh', 'tranthib@example.com', '012345678902', 'images/tranthib.jpg', 'Truong phong', 'password2'),
-                ('Le Van C', '1992-03-10', '789 Tran Hung Dao, Da Nang', 'levanc@example.com', '012345678903', 'images/levanc.jpg', 'Nhan vien', 'password3'),
-                ('Pham Thi D', '1988-11-25', '321 Ngo Quyen, Hue', 'phamthid@example.com', '012345678904', 'images/phamthid.jpg', 'Nhan vien', 'password4'),
-                ('Hoang Van E', '1991-07-18', '654 Dien Bien Phu, Can Tho', 'hoangvane@example.com', '012345678905', 'images/hoangvane.jpg', 'Nhan vien', 'password5'),
-                ('Vu Thi F', '1987-09-09', '987 Ly Thuong Kiet, Hai Phong', 'vuthif@example.com', '012345678906', 'images/vuthif.jpg', 'Nhan vien', 'password6'),
-                ('Nguyen Van G', '1983-12-30', '123 Ba Trieu, Nha Trang', 'nguyenvang@example.com', '012345678907', 'images/nguyenvang.jpg', 'Nhan vien', 'password7'),
-                ('Tran Thi H', '1995-06-15', '456 Nguyen Trai, Vung Tau', 'tranthih@example.com', '012345678908', 'images/tranthih.jpg', 'Nhan vien', 'password8'),
-                ('Le Van I', '1993-08-22', '789 Cach Mang Thang Tam, Da Lat', 'levani@example.com', '012345678909', 'images/levani.jpg', 'Nhan vien', 'password9'),
-                ('Pham Thi J', '1990-04-14', '321 Le Duan, Quy Nhon', 'phamthij@example.com', '012345678910', 'images/phamthij.jpg', 'Nhan vien', 'password10'),
-                ('Hoang Van K', '1982-11-11', '654 Tran Phu, Phan Thiet', 'hoangvank@example.com', '012345678911', 'images/hoangvank.jpg', 'Nhan vien', 'password11'),
-                ('Vu Thi L', '1989-02-28', '987 Hai Ba Trung, Bien Hoa', 'vuthil@example.com', '012345678912', 'images/vuthil.jpg', 'Nhan vien', 'password12'),
-                ('Nguyen Van M', '1996-05-05', '123 Tran Quoc Toan, Buon Ma Thuot', 'nguyenvanm@example.com', '012345678913', 'images/nguyenvanm.jpg', 'Nhan vien', 'password13'),
-                ('Tran Thi N', '1994-10-23', '456 Hoang Hoa Tham, Rach Gia', 'tranthin@example.com', '012345678914', 'images/tranthin.jpg', 'Nhan vien', 'password14'),
-                ('Le Van O', '1991-01-19', '789 Le Hong Phong, Soc Trang', 'levano@example.com', '012345678915', 'images/levano.jpg', 'Nhan vien', 'password15'),
-                ('Pham Thi P', '1986-07-30', '321 Tran Quang Khai, My Tho', 'phamthip@example.com', '012345678916', 'images/phamthip.jpg', 'Nhan vien', 'password16'),
-                ('Hoang Van Q', '1984-09-18', '654 Nguyen Van Linh, Vinh', 'hoangvanq@example.com', '012345678917', 'images/hoangvanq.jpg', 'Nhan vien', 'password17'),
-                ('Vu Thi R', '1993-03-03', '987 Vo Thi Sau, Dong Hoi', 'vuthir@example.com', '012345678918', 'images/vuthir.jpg', 'Nhan vien', 'password18'),
-                ('Nguyen Van S', '1990-06-12', '123 Phan Chau Trinh, Tam Ky', 'nguyenvans@example.com', '012345678919', 'images/nguyenvans.jpg', 'Nhan vien', 'password19'),
-                ('Tran Thi T', '1988-12-27', '456 Ly Thuong Kiet, Thanh Hoa', 'tranthit@example.com', '012345678920', 'images/tranthit.jpg', 'Nhan vien', 'password20');
+                INSERT INTO nhan_vien (chi_nhanh_id,ten, ngay_sinh, dia_chi, email, cccd, hinh_anh, chuc_vu, mat_khau) VALUES
+                (1,'Nguyen Van A', '1990-01-15', '123 Pho Hue, Ha Noi', 'nguyenvana@example.com', '012345678901', 'images/nguyenvana.jpg', 'Nhan vien', 'password1'),
+                (2,'Tran Thi B', '1985-05-20', '456 Le Loi, Ho Chi Minh', 'tranthib@example.com', '012345678902', 'images/tranthib.jpg', 'Truong phong', 'password2'),
+                (3,'Le Van C', '1992-03-10', '789 Tran Hung Dao, Da Nang', 'levanc@example.com', '012345678903', 'images/levanc.jpg', 'Nhan vien', 'password3'),
+                (4,'Pham Thi D', '1988-11-25', '321 Ngo Quyen, Hue', 'phamthid@example.com', '012345678904', 'images/phamthid.jpg', 'Nhan vien', 'password4'),
+                (1,'Hoang Van E', '1991-07-18', '654 Dien Bien Phu, Can Tho', 'hoangvane@example.com', '012345678905', 'images/hoangvane.jpg', 'Nhan vien', 'password5'),
+                (2,'Vu Thi F', '1987-09-09', '987 Ly Thuong Kiet, Hai Phong', 'vuthif@example.com', '012345678906', 'images/vuthif.jpg', 'Nhan vien', 'password6'),
+                (3,'Nguyen Van G', '1983-12-30', '123 Ba Trieu, Nha Trang', 'nguyenvang@example.com', '012345678907', 'images/nguyenvang.jpg', 'Nhan vien', 'password7'),
+                (4,'Tran Thi H', '1995-06-15', '456 Nguyen Trai, Vung Tau', 'tranthih@example.com', '012345678908', 'images/tranthih.jpg', 'Nhan vien', 'password8'),
+                (1,'Le Van I', '1993-08-22', '789 Cach Mang Thang Tam, Da Lat', 'levani@example.com', '012345678909', 'images/levani.jpg', 'Nhan vien', 'password9'),
+                (2,'Pham Thi J', '1990-04-14', '321 Le Duan, Quy Nhon', 'phamthij@example.com', '012345678910', 'images/phamthij.jpg', 'Nhan vien', 'password10'),
+                (3,'Hoang Van K', '1982-11-11', '654 Tran Phu, Phan Thiet', 'hoangvank@example.com', '012345678911', 'images/hoangvank.jpg', 'Nhan vien', 'password11'),
+                (4,'Vu Thi L', '1989-02-28', '987 Hai Ba Trung, Bien Hoa', 'vuthil@example.com', '012345678912', 'images/vuthil.jpg', 'Nhan vien', 'password12'),
+                (1,'Nguyen Van M', '1996-05-05', '123 Tran Quoc Toan, Buon Ma Thuot', 'nguyenvanm@example.com', '012345678913', 'images/nguyenvanm.jpg', 'Nhan vien', 'password13'),
+                (2,'Tran Thi N', '1994-10-23', '456 Hoang Hoa Tham, Rach Gia', 'tranthin@example.com', '012345678914', 'images/tranthin.jpg', 'Nhan vien', 'password14'),
+                (3,'Le Van O', '1991-01-19', '789 Le Hong Phong, Soc Trang', 'levano@example.com', '012345678915', 'images/levano.jpg', 'Nhan vien', 'password15'),
+                (4,'Pham Thi P', '1986-07-30', '321 Tran Quang Khai, My Tho', 'phamthip@example.com', '012345678916', 'images/phamthip.jpg', 'Nhan vien', 'password16'),
+                (1,'Hoang Van Q', '1984-09-18', '654 Nguyen Van Linh, Vinh', 'hoangvanq@example.com', '012345678917', 'images/hoangvanq.jpg', 'Nhan vien', 'password17'),
+                (2,'Vu Thi R', '1993-03-03', '987 Vo Thi Sau, Dong Hoi', 'vuthir@example.com', '012345678918', 'images/vuthir.jpg', 'Nhan vien', 'password18'),
+                (3,'Nguyen Van S', '1990-06-12', '123 Phan Chau Trinh, Tam Ky', 'nguyenvans@example.com', '012345678919', 'images/nguyenvans.jpg', 'Nhan vien', 'password19'),
+                (4,'Tran Thi T', '1988-12-27', '456 Ly Thuong Kiet, Thanh Hoa', 'tranthit@example.com', '012345678920', 'images/tranthit.jpg', 'Nhan vien', 'password20');
                 """
         mycursor.execute(sql)
         mydb.commit()
         print('insert 20 record into nhan_vien table')
+
+    def fake_khach_hang(self):
+        fake = Faker()
+        fake_records = []
+        for _ in range(50):
+            ten = fake.name()
+            dia_chi = fake.address().replace("\n", ", ")
+            so_dien_thoai = fake.phone_number()
+            mat_khau = fake.password()
+            email = fake.email()
+            fake_records.append((ten, dia_chi,email, so_dien_thoai, mat_khau))
+
+        # Insert fake records into the database
+        insert_query = """
+        INSERT INTO nguoi_dung (ten, dia_chi,email, so_dien_thoai, mat_khau)
+        VALUES (%s, %s, %s, %s,%s)
+        """
+
+        mycursor.executemany(insert_query, fake_records)
+        mydb.commit()
 
     def random_date(self,start, end):
         """Generate a random datetime between `start` and `end`"""
@@ -139,7 +172,7 @@ class Seed:
     def fake_hoa_don(self):
         used_o_to_ids = set()
         while len(used_o_to_ids) < 50:
-            used_o_to_ids.add(random.randint(1, 100))
+            used_o_to_ids.add(random.randint(301, 400))
 
         start_date = datetime(2013, 1, 1)
         end_date = datetime(2014, 5, 1)
@@ -147,15 +180,16 @@ class Seed:
         # Insert 50 fake records
         for i, o_to_id in enumerate(used_o_to_ids, start=1):
             nhan_vien_id = random.randint(1, 20)
+            nguoi_dung_id = random.randint(51, 100)
             ma_so_thue = f'MST-{i:03d}'
             hinh_thuc_thanh_toan = 'Cash' if i % 2 == 0 else 'Credit Card'
             thoi_gian = self.random_date(start_date, end_date).strftime('%Y-%m-%d %H:%M:%S')
 
             add_hoa_don = (
-                "INSERT INTO hoa_don (nhan_vien_id, o_to_id, ma_so_thue, hinh_thuc_thanh_toan, thoi_gian) "
-                "VALUES (%s, %s, %s, %s, %s)"
+                "INSERT INTO hoa_don (nguoi_dung_id, nhan_vien_id, o_to_id, ma_so_thue, hinh_thuc_thanh_toan, thoi_gian) "
+                "VALUES (%s, %s, %s, %s, %s, %s)"
             )
-            data_hoa_don = (nhan_vien_id, o_to_id, ma_so_thue, hinh_thuc_thanh_toan, thoi_gian)
+            data_hoa_don = (nguoi_dung_id, nhan_vien_id, o_to_id, ma_so_thue, hinh_thuc_thanh_toan, thoi_gian)
 
             mycursor.execute(add_hoa_don, data_hoa_don)
 
@@ -165,5 +199,7 @@ class Seed:
 seed = Seed()
 # seed.fake_loai_xe()
 # seed.fake_o_to()
+# seed.fake_chi_nhanh()
 # seed.fake_nhan_vien()
+seed.fake_khach_hang()
 # seed.fake_hoa_don()
