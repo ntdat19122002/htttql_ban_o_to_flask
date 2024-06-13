@@ -2,7 +2,7 @@
   <div class="new-car">
     <div class="main">
       <div class="lelf">
-        <img src="@/assets/images/cars/car1.webp" alt="">
+        <img :src="'http://localhost:5173/src/assets/images/CarBrand/'+information.hang+'/'+information.hinh_anh" alt="">
       </div>
       <div class="right">
         <div class="title">
@@ -25,7 +25,7 @@
             <span class="sub-detail-title">Xuất sứ: </span><span>{{information.xuat_su}}</span>
           </div>
         </div>
-        <button class="contact-us">Contact us</button>
+        <button class="contact-us"  @click="redirect(`/contact/${information.id}`)">Contact us</button>
       </div>
     </div>
   </div>
@@ -39,8 +39,12 @@ export default {
       information:null,
     }
   },
+  methods:{
+    redirect(url){
+        this.$router.push({ path:url})
+    }
+  },
   async beforeMount(){
-    console.log(1);
     await axios.post('http://127.0.0.1:5000/car/new',{
       loai_xe_id:this.$route.params.loai_xe_id
     }).then(res => this.information = res.data)
@@ -87,5 +91,6 @@ export default {
   font-weight: 600;
   color: white;
   background: black;
+  cursor: pointer;
 }
 </style>

@@ -15,3 +15,7 @@ def get_new_car_by_id():
 @car_pb.route("/car/create")
 def make_car():
     return "<p>acsin</p>"
+
+@car_pb.route("/oto/list")
+def list_o_to():
+    return o_to.read()

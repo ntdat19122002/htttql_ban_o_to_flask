@@ -1,1 +1,17 @@
 @import './base.css';
+
+:root {
+    --primary-color: #010712;
+    --secondary-color: #818386;
+    --bg-color: #fcfdfd;
+    --button-color: #3b3636;
+    --h1-color: #3f444c;
+}
+
+[data-theme="dark"] {
+    --primary-color: #fcfdfd;
+    --secondary-color: #818386;
+    --bg-color: #010712;
+    --button-color: #818386;
+    --h1-color: #fcfdfd;
+}

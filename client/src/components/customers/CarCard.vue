@@ -1,6 +1,6 @@
 <template>
   <div class="car-card">
-    <img src="@/assets/images/cars/car1.webp" alt="" />
+    <img :src="'http://localhost:5173/src/assets/images/CarBrand/'+car.hang+'/'+car.hinh_anh" alt="" />
     <div class="car-name">{{car.ten}}</div>
     <button @click="redirect(`/cars/new/${car.id}`)">Buy now</button>
   </div>
@@ -35,5 +35,6 @@ button{
     padding: 10px;
     background: black;
     color: white;
+    cursor: pointer;
 }
 </style>
