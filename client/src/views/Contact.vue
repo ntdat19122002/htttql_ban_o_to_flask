@@ -18,18 +18,26 @@
         <form id="contact-form" method="post">
           <label for="name">Full name</label>
           <input
-            type="text"
-            id="name"
-            name="name"
+            v-model="ten"
             placeholder="Your Full Name"
             required
           />
           <label for="email">Email Address</label>
           <input
-            type="email"
-            id="email"
-            name="email"
+            v-model="email"
             placeholder="Your Email Address"
+            required
+          />
+          <label for="email">Address</label>
+          <input
+            v-model="dia_chi"
+            placeholder="Your Address"
+            required
+          />
+          <label for="email">Phone number</label>
+          <input
+            v-model="so_dien_thoai"
+            placeholder="Your Phone Number"
             required
           />
           <label for="message">Message</label>
@@ -40,20 +48,13 @@
             name="message"
             required
           ></textarea>
-          <!--<a href="javascript:void(0)">--><button
-            type="submit"
-            id="submit"
-            name="submit"
-          >
-            Send</button
-          ><!--</a>-->
+          <button @click="send">Send</button>
         </form>
         <div id="error"></div>
         <div id="success-msg"></div>
       </div>
     </div>
 
-    <!-- Image credit: Oliver Sjöström https://www.pexels.com/photo/body-of-water-near-green-mountain-931018/  -->
   </div>
 </template>
 
@@ -63,14 +64,25 @@ export default {
     data(){
         return{
             information: null,
-            fullname: null,
+            ten: null,
             email: null,
+            dia_chi:null,
+            so_dien_thoai:null,
             message: null
         }
     },
     methods:{
         redirect(url){
             this.$router.push({ path:url})
+        },
+        async send(){
+          await axios.post('http://127.0.0.1:5000/hoa_don_temp/new',{
+            loai_xe_id:this.$route.params.id,
+            ten: this.ten,
+            email: this.email,
+            dia_chi:this.dia_chi,
+            so_dien_thoai:this.so_dien_thoai,
+          }).then(res => this.information = res.data)
         }
     },
     async beforeMount(){

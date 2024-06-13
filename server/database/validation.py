@@ -4,7 +4,7 @@ class Validation:
         self.mycursor = mydb.cursor()
     def check_table_exists(self):
         table_list = ['loai_xe','tin_tuc','chi_nhanh','o_to','nguoi_dung','dai_ly','khuyen_mai'
-                      ,'nguoi_dung','bai_dang','kho','nhan_vien','hoa_don','bao_hiem']
+                      ,'nguoi_dung','bai_dang','kho','nhan_vien','hoa_don','bao_hiem','hoa_don_temp']
         for table in table_list:
             if not self.table_exists(self.mycursor, table):
                 self.create_table(self.mycursor, table)
@@ -118,6 +118,21 @@ class Validation:
         elif table_name == 'hoa_don':
             cursor.execute("""
                 CREATE TABLE hoa_don (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    nguoi_dung_id INT NOT NULL,
+                    nhan_vien_id INT NOT NULL,
+                    o_to_id INT NOT NULL,
+                    ma_so_thue VARCHAR(50),
+                    hinh_thuc_thanh_toan VARCHAR(50),
+                    thoi_gian DATE,
+                    FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(id),
+                    FOREIGN KEY (nhan_vien_id) REFERENCES nhan_vien(id),
+                    FOREIGN KEY (o_to_id) REFERENCES o_to(id)
+                )
+            """)
+        elif table_name == 'hoa_don_temp':
+            cursor.execute("""
+                CREATE TABLE hoa_don_temp (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     nguoi_dung_id INT NOT NULL,
                     nhan_vien_id INT NOT NULL,

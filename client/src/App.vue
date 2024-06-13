@@ -25,8 +25,21 @@ export default {
     <router-link :to="{ name: 'admin_livetime' }" class="navbar-item"
       >Lifetime</router-link
     >
+    <router-link :to="{ name: 'admin_hoadon' }" class="navbar-item"
+      >Bill</router-link
+    >
     <router-link :to="{ name: 'admin_oto' }" class="navbar-item"
       >Car</router-link
+    >
+   
+    <router-link :to="{ name: 'admin_loaixe' }" class="navbar-item"
+      >Model</router-link
+    >
+    <router-link :to="{ name: 'admin_nguoidung' }" class="navbar-item"
+      >Customer</router-link
+    >
+    <router-link :to="{ name: 'admin_hoadontemp' }" class="navbar-item"
+      >Đơn hàng</router-link
     >
   </div>
   <RouterView />
