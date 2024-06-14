@@ -19,11 +19,15 @@
             <div class="detail-action">
               <div
                 class="detail-action-item"
-                @click="extractContentAudio(record.id)"
+                @click="confirmHoadon(record.o_to_id,record.nguoi_dung_id)"
               >
-                Extract words
+                Confirm
               </div>
-              <div class="detail-action-item remove-button">X</div>
+              <div 
+                class="detail-action-item remove-button"
+                @click="deleteHoadon(record.id)">
+                X
+              </div>
             </div>
           </template>
         </template>
@@ -101,8 +105,36 @@ export default {
           sorter: true,
           key: "dia_chi",
         },
+        {
+          title: "Action",
+          dataIndex: "action",
+          key: "action",
+        },
       ],
     };
+  },
+  methods:{
+    deleteHoadon(id){
+      axios
+        .post("http://127.0.0.1:5000/hoa_don_temp/delete",{
+          hoa_don_temp_id:id
+        })
+        .then((res) => {
+          this.audio_data = res.data;
+        })
+        .catch((e) => console.log(e));
+    },
+    confirmHoadon(o_to_id,nguoi_dung_id){
+      axios
+        .post("http://127.0.0.1:5000/hoa_don_temp/confirm",{
+          o_to_id:o_to_id,
+          nguoi_dung_id,nguoi_dung_id
+        })
+        .then((res) => {
+          this.audio_data = res.data;
+        })
+        .catch((e) => console.log(e));
+    }
   },
   mounted() {
     axios
@@ -142,7 +174,7 @@ export default {
   margin: 0 10px;
   padding: 5px 10px;
   border-radius: 4px;
-  background: rgb(129, 129, 201);
+  background: rgb(36, 214, 105);
   color: white;
   cursor: pointer;
 }

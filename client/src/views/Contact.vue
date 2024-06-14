@@ -15,7 +15,7 @@
           things to do and find best deals for your next adventure.
         </p>
 
-        <form id="contact-form" method="post">
+        <div class="form">
           <label for="name">Full name</label>
           <input
             v-model="ten"
@@ -48,8 +48,8 @@
             name="message"
             required
           ></textarea>
-          <button @click="send">Send</button>
-        </form>
+          <button @click="send()">Send</button>
+        </div>
         <div id="error"></div>
         <div id="success-msg"></div>
       </div>
@@ -82,7 +82,7 @@ export default {
             email: this.email,
             dia_chi:this.dia_chi,
             so_dien_thoai:this.so_dien_thoai,
-          }).then(res => this.information = res.data)
+          }).then()
         }
     },
     async beforeMount(){
@@ -158,7 +158,7 @@ label,
   font-size: 0.625rem;
 }
 
-form {
+.form {
   width: 31.25rem;
   position: relative;
   margin-top: 2rem;

@@ -135,13 +135,11 @@ class Validation:
                 CREATE TABLE hoa_don_temp (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     nguoi_dung_id INT NOT NULL,
-                    nhan_vien_id INT NOT NULL,
                     o_to_id INT NOT NULL,
                     ma_so_thue VARCHAR(50),
                     hinh_thuc_thanh_toan VARCHAR(50),
                     thoi_gian DATE,
                     FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(id),
-                    FOREIGN KEY (nhan_vien_id) REFERENCES nhan_vien(id),
                     FOREIGN KEY (o_to_id) REFERENCES o_to(id)
                 )
             """)
